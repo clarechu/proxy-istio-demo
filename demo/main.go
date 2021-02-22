@@ -1,0 +1,26 @@
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+	"log"
+	"net/http"
+)
+
+func main() {
+	http.HandleFunc("/", handle)
+	log.Fatal(http.ListenAndServe(":8080", nil))
+}
+
+type Health struct {
+	UP bool `json:"up"`
+}
+
+func handle(resp http.ResponseWriter, req *http.Request) {
+	s := fmt.Sprintf("request url = %v", req.RequestURI)
+	fmt.Println(s)
+	h := Health{UP: true}
+	b, _ := json.Marshal(h)
+	resp.Header().Set("hello world", "demo")
+	_, _ = resp.Write(b)
+}

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+iptables -t nat -A PREROUTING -p tcp --dport 8080 -j REDIRECT --to-ports 8888
+
+echo "success"
+
+
+
+

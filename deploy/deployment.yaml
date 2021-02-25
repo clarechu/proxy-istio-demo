@@ -11,7 +11,7 @@ spec:
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app: details
+      app: proxy-istio-demo
       version: v1
   strategy:
     rollingUpdate:
@@ -21,7 +21,7 @@ spec:
   template:
     metadata:
       labels:
-        app: details
+        app: proxy-istio-demo
         version: v1
     spec:
       containers:
@@ -53,12 +53,22 @@ spec:
           resources: {}
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
+      initContainers:
+        - image: clarechu/init:v1.0
+          imagePullPolicy: Always
+          name: init
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+                - NET_RAW
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
-      serviceAccount: bookinfo-details
-      serviceAccountName: bookinfo-details
       terminationGracePeriodSeconds: 30
 
 ---
@@ -79,4 +89,4 @@ spec:
   selector:
     app: proxy-istio-demo
   sessionAffinity: None
-  type: ClusterIP
+  type: NodePort

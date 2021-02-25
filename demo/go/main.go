@@ -9,6 +9,7 @@ import (
 
 func main() {
 	http.HandleFunc("/", handle)
+	log.Println("started on port(s): 8080 (http) with context path ''")
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 

@@ -3,12 +3,10 @@ kind: Deployment
 metadata:
   generation: 1
   labels:
-    app: details
+    app: proxy-istio-demo
     version: v1
-  name: details-v1
-  namespace: demo
+  name: proxy-istio-demo-v1
 spec:
-  progressDeadlineSeconds: 600
   replicas: 1
   revisionHistoryLimit: 10
   selector:
@@ -27,11 +25,30 @@ spec:
         version: v1
     spec:
       containers:
-        - image: registry.cn-shenzhen.aliyuncs.com/solar-mesh/examples-bookinfo-details-v1:1.15.0
-          imagePullPolicy: IfNotPresent
-          name: details
+        - image: clarechu/demo:v1.0
+          imagePullPolicy: Always
+          name: demo
+          securityContext:
+            capabilities:
+              add:
+              - NET_ADMIN
+              - NET_RAW
           ports:
-            - containerPort: 9080
+            - containerPort: 8080
+              protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        - image: clarechu/proxy:v1.0
+          imagePullPolicy: Always
+          name: proxy
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+                - NET_RAW
+          ports:
+            - containerPort: 8888
               protocol: TCP
           resources: {}
           terminationMessagePath: /dev/termination-log
@@ -50,18 +67,16 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: details
-    service: details
-  name: details
-  namespace: demo
+    app: proxy-istio-demo
+    service: proxy-istio-demo
+  name: proxy-istio-demo
 spec:
-  clusterIP: 10.70.125.117
   ports:
     - name: http
-      port: 9080
+      port: 8080
       protocol: TCP
-      targetPort: 9080
+      targetPort: 8080
   selector:
-    app: details
+    app: proxy-istio-demo
   sessionAffinity: None
   type: ClusterIP

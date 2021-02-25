@@ -3,6 +3,8 @@
 echo  "GOOS=linux go build"
  GOOS=linux go build -o demo
 
-scp demo root@10.10.13.110:~/demo
+docker build -t clarechu/demo:v1.0 .
+
+docker push clarechu/demo:v1.0
 
 rm -rf demo

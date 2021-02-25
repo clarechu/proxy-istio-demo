@@ -6,7 +6,7 @@ RUN apt update -y \
     && apt-get install iptables sudo -y
 
 
-COPY proxy /bin/proxy
+COPY demo /bin/demo
 
 
-CMD ["proxy"]
+CMD ["demo"]

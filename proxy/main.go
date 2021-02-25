@@ -30,6 +30,7 @@ func (h *handle) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 func startServer() {
 	//被代理的服务器host和port
 	h := &handle{host: "localhost", port: "8080"}
+	log.Println("started on port(s): 8888 (http) with context path ''")
 	err := http.ListenAndServe(":8888", h)
 	if err != nil {
 		log.Fatalln("ListenAndServe: ", err)

@@ -3,6 +3,8 @@
 echo  "GOOS=linux go build"
  GOOS=linux go build -o proxy
 
-scp proxy root@10.10.13.110:~/demo
+docker build -t clarechu/proxy:v1.0 .
+
+docker push clarechu/proxy:v1.0
 
 rm -rf proxy

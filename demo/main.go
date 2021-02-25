@@ -21,6 +21,7 @@ func handle(resp http.ResponseWriter, req *http.Request) {
 	fmt.Println(s)
 	h := Health{UP: true}
 	b, _ := json.Marshal(h)
+	fmt.Printf("proxy: ---> %v", req.Header.Get("proxy"))
 	resp.Header().Set("hello world", "demo")
 	_, _ = resp.Write(b)
 }

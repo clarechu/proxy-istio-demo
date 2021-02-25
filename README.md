@@ -1,5 +1,7 @@
 # proxy-istio-demo
 
+该项目主要是模拟 从应用程序容器到Sidecar代理的流量 基本的实现原理
+
 ![img.png](img.png)
 
 ## demo
@@ -49,7 +51,8 @@ hello world: demo
 
 
 ```bash
-$ curl localhost:8888?a=b -v
+
+$ curl http://localhost:8888?a=b -v
 
 *   Trying ::1...
 * TCP_NODELAY set

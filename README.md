@@ -2,6 +2,33 @@
 
 该项目主要是模拟 从应用程序容器到Sidecar代理的流量 基本的实现原理
 
+测试
+
+```bash
+
+$ curl localhost:8080  -vv -w "\n timeout ---> %{time_total} \n"
+
+*   Trying ::1...
+* TCP_NODELAY set
+* Connected to localhost (::1) port 8888 (#0)
+> GET / HTTP/1.1
+> Host: localhost:8888
+> User-Agent: curl/7.64.1
+> Accept: */*
+>
+< HTTP/1.1 200 OK
+< Content-Type: application/json
+< Date: Thu, 25 Feb 2021 06:04:38 GMT
+< demo ->: java
+< response proxy header: xx2
+< Content-Length: 11
+<
+* Connection #0 to host localhost left intact
+{"up":true}
+ timeout ---> 6.007932
+* Closing connection 0
+```
+
 ![img.png](img.png)
 
 ## demo

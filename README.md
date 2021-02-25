@@ -48,6 +48,28 @@ hello world: demo
 ## proxy 代理服务
 
 
+```bash
+$ curl localhost:8888?a=b -v
+
+*   Trying ::1...
+* TCP_NODELAY set
+* Connected to localhost (::1) port 8888 (#0)
+> GET /?a=b HTTP/1.1
+> Host: localhost:8888
+> User-Agent: curl/7.64.1
+> Accept: */*
+>
+< HTTP/1.1 200 OK
+< Content-Length: 11
+< Content-Type: text/plain; charset=utf-8
+< Date: Thu, 25 Feb 2021 01:49:42 GMT
+< hello world: demo
+< response proxy header: xx2
+<
+* Connection #0 to host localhost left intact
+{"up":true}* Closing connection 0
+```
+
 ## sidecar-init
 
 

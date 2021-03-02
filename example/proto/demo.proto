@@ -1,0 +1,20 @@
+syntax = "proto3";
+package v1;
+option go_package = "github.com/ClareChu/proxy-istio-demo/proto";
+
+
+message DemoRequest {
+    string message = 1;
+
+}
+
+message DemoResponse {
+    int32 code = 1;
+    string message = 2;
+    string data = 3;
+}
+
+service DemoInterface {
+    rpc Get (DemoRequest) returns (DemoResponse) {
+    }
+}

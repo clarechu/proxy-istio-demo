@@ -7,14 +7,15 @@ import (
 	"log"
 )
 
-func Get(conn *grpc.ClientConn) {
+func Get(conn *grpc.ClientConn, message string) *proto.DemoResponse {
 	client := proto.NewDemoInterfaceClient(conn)
 	req := &proto.DemoRequest{
-		Message: "hello world",
+		Message: message,
 	}
 	resp, err := client.Get(context.TODO(), req)
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Printf("%+v", resp)
+	log.Printf("response --> %+v", resp)
+	return resp
 }

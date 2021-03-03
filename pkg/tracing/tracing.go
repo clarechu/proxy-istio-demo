@@ -10,7 +10,7 @@ import (
 
 func NewTracing(samplingServerURL, localAgentHostPort string) (opentracing.Tracer, io.Closer) {
 	cfg := config.Configuration{
-		ServiceName: "server",
+		ServiceName: "grpc-server",
 		Sampler: &config.SamplerConfig{
 			Type:              "const",
 			Param:             1,

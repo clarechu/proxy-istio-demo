@@ -11,6 +11,7 @@ spec:
   selector:
     matchLabels:
       app: grpc-client
+      version: v1
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -21,6 +22,7 @@ spec:
       creationTimestamp: null
       labels:
         app: grpc-client
+        version: v1
     spec:
       containers:
       - args:

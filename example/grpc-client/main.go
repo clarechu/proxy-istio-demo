@@ -14,7 +14,7 @@ var addr = flag.String("addr", "localhost", "The address of the server to connec
 var port = flag.String("port", "7575", "The port to connect to")
 
 func main() {
-
+	flag.Parse()
 	conn, err := grpc.Dial(
 		net.JoinHostPort(*addr, *port),
 		grpc.WithInsecure(),

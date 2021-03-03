@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: grpc-client
+  name: grpc-client
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: grpc-client
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: grpc-client
+    spec:
+      containers:
+      - args:
+          - grpc-client
+          - --addr=grpc-server
+        image: clarechu/grpc-client:v1.0
+        imagePullPolicy: Always
+        name: grpc-client
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: grpc-client
+  name: grpc-client
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+    - name: http-8080
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: grpc-client
+  sessionAffinity: None
+  type: NodePort

@@ -43,7 +43,7 @@ func (d *demoHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	log.Printf("get message data--> %v", message)
 	b, err := json.Marshal(pkg.Get(d.conn, message))
 	if err != nil {
-		log.Fatal(err)
+		log.Printf("%+v", err)
 	}
 	w.Write(b)
 }

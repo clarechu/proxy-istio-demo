@@ -14,7 +14,11 @@ func Get(conn *grpc.ClientConn, message string) *proto.DemoResponse {
 	}
 	resp, err := client.Get(context.TODO(), req)
 	if err != nil {
-		log.Fatal(err)
+		resp = &proto.DemoResponse{
+			Code:    200,
+			Message: err.Error(),
+		}
+		log.Println(err)
 	}
 	log.Printf("response --> %+v", resp)
 	return resp

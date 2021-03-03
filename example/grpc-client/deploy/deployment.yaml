@@ -11,7 +11,6 @@ spec:
   selector:
     matchLabels:
       app: grpc-client
-      version: v1
   strategy:
     rollingUpdate:
       maxSurge: 25%

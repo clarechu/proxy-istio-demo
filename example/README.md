@@ -3,5 +3,5 @@
 ```http request
 GET http://localhost:8080/?message=hello
 
-{"code":200,"message":"success","data":"hello-world"}%
+{"code":200,"message":"success","data":"hello-world"}
 ```

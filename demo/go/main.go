@@ -31,9 +31,10 @@ type Health struct {
 func handle(resp http.ResponseWriter, req *http.Request) {
 	s := fmt.Sprintf("request url = %v", req.RequestURI)
 	fmt.Println(s)
+	fmt.Println(fmt.Sprintf("x-request-start headers = %v", req.Header.Get("x-request-start")))
 	h := &Health{UP: true}
 	b, _ := json.Marshal(h)
 	fmt.Printf("proxy: ---> %v", req.Header.Get("proxy"))
-	//resp.Header().Set("hello world", "demo")
+	resp.Header().Set("hello-world", "demo")
 	_, _ = resp.Write(b)
 }

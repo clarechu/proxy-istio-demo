@@ -34,7 +34,7 @@ public class HelloWorld implements ResourceLoaderAware {
 
     @GetMapping(value = "/test")
     public Object Test() throws IOException {
-        Resource resource = resourceLoader.getResource("classpath:test.yaml");
+        Resource resource = resourceLoader.getResource("classpath:static/test.yaml");
         InputStream inputStream = resource.getInputStream(); // <-- this is the difference
         String text = null;
         try (Reader reader = new InputStreamReader(inputStream)) {

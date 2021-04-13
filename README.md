@@ -1,8 +1,15 @@
 # proxy-istio-demo
 
+
 该项目主要是介绍了istio 注入sidecar的主要流程,  从Sidecar代理(envoy) 到应用程序的流量 的基本实现原理。
 
 以及一些envoy 的一些配置的示例 yaml 见envoy目录
+
+## 背景
+
+在学习istio的过程中, 在容器的启动流程和注入流程感觉很疑惑 也很复杂。
+这个项目主要是为了帮助我们更好的学习istio 帮助我们怎样去理解istio 及istio的工作流程。
+
 
 在开始之前 
 

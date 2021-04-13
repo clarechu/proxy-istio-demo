@@ -11,22 +11,30 @@
 ## 注入过程一共分为三个过程 分别是
 
 1. demo 
+
 项目路径: ./demo
 
 示例项目 主要是一个http-server 监听8080 端口 
-2. sidecar-init
-   项目路径: ./sidecar-init
+
+2. sidecar-init 
+   
+项目路径: ./sidecar-init
+
 初始化容器( init-container) 主要是相当于 istio 注入过程中的istio-init, istio-init 容器的主要功能是修改iptables的规则,
    使流量本来进入demo的流量 改变到 envoy中。
-3. proxy  
-   项目路径: ./proxy
 
-   proxy 相当于istio 的sidecar 容器 里面主要包含 pilot-agent和envoy，proxy 主要简单实现了一个代理的作用
+3. proxy  
+   
+项目路径: ./proxy
+
+proxy 相当于istio 的sidecar 容器 里面主要包含 pilot-agent和envoy，proxy 主要简单实现了一个代理的作用
+
    
 ```go
 	r.Header.Set("proxy", "xx1")
 	time.Sleep(6 * time.Second)
 ```
+
 * 在头部 set了`"proxy": "xx1"` 并 休眠6秒
 * 将8888 转到8080 上
 

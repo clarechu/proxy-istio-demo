@@ -1,30 +1,38 @@
 # proxy-istio-demo
 
-该项目主要是介绍了istio 注入sidecar的主要流程,  从应用程序容器到Sidecar代理的流量 基本的实现原理。
-还有一些envoy 的一些配置的示例 yaml 见envoy目录
+该项目主要是介绍了istio 注入sidecar的主要流程,  从Sidecar代理(envoy) 到应用程序的流量 的基本实现原理。
+
+以及一些envoy 的一些配置的示例 yaml 见envoy目录
 
 在开始之前 
 
 * kubernetes 为 1.16+的集群
 
-注入过程一共分为三个过程 分别是
+## 注入过程一共分为三个过程 分别是
 
 1. demo 
+项目路径: ./demo
+
 示例项目 主要是一个http-server 监听8080 端口 
 2. sidecar-init
-初始化容器 init-container 主要是相当于 istio 注入过程中的istio-init, istio-init 容器的主要功能是修改iptable的规则,
-   使流量本身的流量进去demo 改变到 envoy中。
+   项目路径: ./sidecar-init
+初始化容器( init-container) 主要是相当于 istio 注入过程中的istio-init, istio-init 容器的主要功能是修改iptables的规则,
+   使流量本来进入demo的流量 改变到 envoy中。
 3. proxy  
+   项目路径: ./proxy
+
    proxy 相当于istio 的sidecar 容器 里面主要包含 pilot-agent和envoy，proxy 主要简单实现了一个代理的作用
    
 ```go
 	r.Header.Set("proxy", "xx1")
 	time.Sleep(6 * time.Second)
 ```
-第一是 在头部 set了`"proxy": "xx1"` 并 休眠6秒
-第二 将8888 转到8080 上
+* 在头部 set了`"proxy": "xx1"` 并 休眠6秒
+* 将8888 转到8080 上
 
 ## 开始
+
+### 注入之前
 
 首先我们先部署一个demo项目 
 
@@ -60,6 +68,8 @@ $ curl localhost:8080/?a=b  -vv -w "\n timeout ---> %{time_total} \n"
  timeout ---> 0.003932
 * Closing connection 0
 ```
+
+### 注入之后
 
 通过响应我们可以看出来 第一头部不包含 key 为proxy的头 第二响应时间小于1秒， 现在我们开始注入sidecar 试试
 

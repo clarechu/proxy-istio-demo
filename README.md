@@ -35,6 +35,8 @@ proxy 相当于istio 的sidecar 容器 里面主要包含 pilot-agent和envoy，
 	time.Sleep(6 * time.Second)
 ```
 
+在代理的过程中 主要干了这两件事
+
 * 在头部 set了`"proxy": "xx1"` 并 休眠6秒
 * 将8888 转到8080 上
 
@@ -77,9 +79,9 @@ $ curl localhost:8080/?a=b  -vv -w "\n timeout ---> %{time_total} \n"
 * Closing connection 0
 ```
 
-### 注入之后
-
 通过响应我们可以看出来 第一头部不包含 key 为proxy的头 第二响应时间小于1秒， 现在我们开始注入sidecar 试试
+
+### 注入之后
 
 ```bash
 $ kubectl apply -f deploy/deployment.yaml
@@ -114,9 +116,13 @@ $ curl localhost:8080  -vv -w "\n timeout ---> %{time_total} \n"
 
 这个时候我们可以看到出现了 一个为proxy的响应头 和响应时间为6.007932 则证明我的代理设置成功了，以下是istio 注入的设计图
 
+
+## 在istio 从应用程序容器到Sidecar代理的流量
+
 ![img.png](img.png)
 
-接下来我们进入istio sidecar容器 里面也可以看到
+接下来我们进入istio sidecar容器 
+查找NAT 表可以看到一种有以下链
 
 ```bash
 

@@ -3,7 +3,7 @@
 
 该项目主要是介绍了istio 注入sidecar的主要流程,  从Sidecar代理(envoy) 到应用程序的流量 的基本实现原理。
 
-以及一些envoy 的一些配置的示例 yaml 见[envoy 配置详解](./envoy/README.md)
+以及一些envoy 的一些配置的示例 yaml 见[envoy 配置详解](./envoy)
 
 ## 背景
 

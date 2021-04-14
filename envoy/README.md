@@ -3,7 +3,8 @@
 ## 背景:
 
 我们知道 istio 的数据面 默认使用的是`envoy`。
-多数程序员对istio 有了解 但是在envoy 深入了解的人少之又少, 
+但是 对 envoy 了解的人比 istio 的人数少之又少,
+主要的原因是envoy的文档复杂 不好读懂, 还有就是需要的专业知识比较多, 导致了解envoy 的人数比较少。
 该文档主要把envoy中的主要功能 及测试的yaml 贴出来 让大家更加方便的了解envoy的运行过程, 及使用教程。
 有不对的地方麻烦大家多多指正。
 
@@ -38,6 +39,31 @@
 * Mesh：一组主机以进行协调以提供一致的网络拓扑。在本文档中，“ Envoy网格”是一组Envoy代理，它们构成了由许多不同服务和应用程序平台组成的分布式系统的消息传递基础。
 
 * Runtime configuration：与Envoy一起部署的带外实时配置系统。可以更改配置设置，这将影响操作，而无需重新启动Envoy或更改主要配置。
+
+## 安装envoy
+
+测试步骤之前我们需要安装envoy
+
+macos 
+
+```bash
+brew install envoy
+```
+
+windows
+
+```bash
+
+docker pull envoyproxy/envoy-windows-dev:latest
+docker run --rm envoyproxy/envoy-windows-dev:latest --version
+
+```
+
+其他的操作系统请参考 官方文档
+
+[Installing Envoy](https://www.envoyproxy.io/docs/envoy/latest/start/install)
+
+## 配置简介
 
 流量管理 流量分配
 

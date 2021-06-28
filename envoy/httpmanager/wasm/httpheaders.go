@@ -32,7 +32,7 @@ func (ctx *httpHeaders) OnHttpRequestHeaders(numHeaders int, endOfStream bool) t
 
 //OnHttpResponseHeaders Override DefaultHttpContext.
 func (ctx *httpHeaders) OnHttpResponseHeaders(numHeaders int, endOfStream bool) types.Action {
-	if err := proxywasm.SetHttpResponseHeader("hello", "world"); err != nil {
+	if err := proxywasm.SetHttpResponseHeader("hello1", "world"); err != nil {
 		proxywasm.LogCriticalf("failed to set response header: %v", err)
 		return types.ActionContinue
 	}

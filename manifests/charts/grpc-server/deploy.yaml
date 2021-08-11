@@ -27,7 +27,7 @@ spec:
         version: v1
     spec:
       containers:
-        - image: clarechu/demo:v1.0
+        - image: clarechu/grpc-server:v1.0
           imagePullPolicy: Always
           name: grpc-server
           securityContext:
@@ -37,6 +37,8 @@ spec:
                 - NET_RAW
           ports:
             - containerPort: 8080
+              protocol: TCP
+            - containerPort: 7575
               protocol: TCP
           resources: {}
           terminationMessagePath: /dev/termination-log

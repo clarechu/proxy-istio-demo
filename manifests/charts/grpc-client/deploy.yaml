@@ -27,7 +27,7 @@ spec:
         version: v1
     spec:
       containers:
-        - image: clarechu/demo:v1.0
+        - image: clarechu/grpc-client:v1.0
           imagePullPolicy: Always
           name: grpc-client
           securityContext:

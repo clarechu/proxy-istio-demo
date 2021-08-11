@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 echo  "GOOS=linux go build"
  GOOS=linux go build -o grpc-server
 

@@ -13,6 +13,10 @@ spec:
       port: 8080
       protocol: TCP
       targetPort: 8080
+    - name: grpc
+      port: 7575
+      protocol: TCP
+      targetPort: 7575
   selector:
     app: grpc-server
   sessionAffinity: None

@@ -20,6 +20,7 @@ func (ctx *rootContext) NewHttpContext(contextID uint32) proxywasm.HttpContext {
 //OnHttpRequestHeaders Override DefaultHttpContext.
 func (ctx *httpHeaders) OnHttpRequestHeaders(numHeaders int, endOfStream bool) types.Action {
 	hs, err := proxywasm.GetHttpRequestHeaders()
+
 	if err != nil {
 		proxywasm.LogCriticalf("failed to get request headers: %v", err)
 	}
@@ -32,7 +33,7 @@ func (ctx *httpHeaders) OnHttpRequestHeaders(numHeaders int, endOfStream bool) t
 
 //OnHttpResponseHeaders Override DefaultHttpContext.
 func (ctx *httpHeaders) OnHttpResponseHeaders(numHeaders int, endOfStream bool) types.Action {
-	if err := proxywasm.SetHttpResponseHeader("hello1", "world"); err != nil {
+	if err := proxywasm.SetHttpResponseHeader("hello2", "world"); err != nil {
 		proxywasm.LogCriticalf("failed to set response header: %v", err)
 		return types.ActionContinue
 	}

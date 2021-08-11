@@ -29,7 +29,7 @@ spec:
       containers:
         - args:
             - grpc-client
-            - addr=grpc-server
+            - --addr=grpc-server
           image: clarechu/grpc-client:v1.0
           imagePullPolicy: Always
           name: grpc-client

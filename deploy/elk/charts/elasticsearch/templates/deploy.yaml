@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: elasticsearch
+    version: {{ .Values.global.version }}
+  name: elasticsearch
+spec:
+  podManagementPolicy: OrderedReady
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  serviceName: elasticsearch
+  selector:
+    matchLabels:
+      app: elasticsearch
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: elasticsearch
+        version: {{ .Values.global.version }}
+    spec:
+      containers:
+        - env:
+            {{- if eq (.Values.replicas | toString) "1" }}
+            - name: discovery.type
+              value: single-node
+            {{- end }}
+            {{- if ne (.Values.replicas | toString) "1" }}
+            - name: cluster.initial_master_nodes
+              value: "{{ template "elasticsearch.endpoints" . }}"
+            {{- end }}
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: http.cors.enabled
+              value: "true"
+            - name: http.cors.allow-origin
+              value: '*'
+          image: elasticsearch:{{ .Values.global.version }}
+          imagePullPolicy: IfNotPresent
+          name: elasticsearch
+          volumeMounts:
+            - mountPath: /usr/share/elasticsearch/data
+              name: elasticsearch
+          ports:
+            - containerPort: 9200
+              name: http-9200
+              protocol: TCP
+            - containerPort: 9300
+              name: http-9300
+              protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 10
+      volumes:
+        - name: elasticsearch
+          {{- if gt .Values.volumes.type "hostPath" }}
+          hostPath:
+            path: /data/elasticsearch
+            type: Directory
+          {{- else if gt .Values.volumes.type "configmap" }}
+          {{- end }}

@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: elasticsearch
+  labels:
+    app: elasticsearch
+    version: {{ .Values.global.version }}
+data:
+  elasticsearch.yml: |
+    cluster.name: "es-cluster-${POD_NAMESPACE}"
+    node.name: "${POD_NAME}"
+    network.host: 0.0.0.0
+    http.host: 0.0.0.0
+    transport.host: 0.0.0.0
+    bootstrap.memory_lock: false
+    discovery.seed_hosts: elasticsearch
+    node.master: true 
+    node.data: false 
+    node.ingest: false 
+    cluster.remote.connect: false

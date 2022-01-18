@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: elasticsearch
+    version: {{ .Values.global.version }}
+  name: elasticsearch
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+    - name: http-9200
+      nodePort: 32147
+      port: 9200
+      protocol: TCP
+      targetPort: 9200
+    - name: http-9300
+      nodePort: 30696
+      port: 9300
+      protocol: TCP
+      targetPort: 9300
+  selector:
+    app: elasticsearch
+  sessionAffinity: None
+  type: NodePort

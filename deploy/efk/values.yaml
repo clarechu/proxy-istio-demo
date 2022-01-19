@@ -2,4 +2,4 @@ global:
   version: 7.16.1
   hub: docker.elastic.co/elasticsearch/
   kibana:
-    hub: docker.io
+    hub: docker.io/

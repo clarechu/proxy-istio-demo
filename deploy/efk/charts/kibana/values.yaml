@@ -5,9 +5,12 @@
 fullname: kibana
 kibana:
   enabled: false
+  host: kibana.demo.cn
 
 global:
   version: 7.16.1
+  kibana:
+    hub: docker.io
 
 replicas: 1
 

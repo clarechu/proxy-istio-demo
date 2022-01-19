@@ -4,3 +4,11 @@
 
 global:
   version: 7.16.1
+
+replicas: 1
+
+elasticsearch:
+  hosts:
+    - http://elasticsearch:9200
+    - http://elasticsearch111:9200
+    - http://xxxxxx:9200

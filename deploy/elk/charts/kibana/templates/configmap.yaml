@@ -4,7 +4,7 @@ data:
     # Default Kibana configuration for docker target
     server.name: kibana
     server.host: "0"
-    elasticsearch.hosts: [ "http://elasticsearch:9200" ]
+    elasticsearch.hosts: [ {{ template "kibana.elasticsearch.hosts" . }} ]
     xpack.monitoring.ui.container.elasticsearch.enabled: true
 kind: ConfigMap
 metadata:

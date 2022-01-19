@@ -1,3 +1,6 @@
+{{- if .Values.elasticsearch.enabled }}
+
+
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -32,6 +35,8 @@ spec:
             - name: discovery.seed_hosts
               value: {{ template "elasticsearch.masterService" . }}
             {{- end }}
+            - name: ES_JAVA_OPTS
+              value: {{ .Values.java.ops }}
             - name: POD_NAME
               valueFrom:
                 fieldRef:
@@ -44,7 +49,8 @@ spec:
               value: "true"
             - name: http.cors.allow-origin
               value: '*'
-          image: elasticsearch:{{ .Values.global.version }}
+              #It is forbidden to specify block composed value at the same line as key
+          image: {{ .Values.global.hub }}{{ .Values.fullnameOverride }}:{{ .Values.global.version }}
           imagePullPolicy: IfNotPresent
           name: elasticsearch
           volumeMounts:
@@ -73,3 +79,4 @@ spec:
             type: Directory
           {{- else if gt .Values.volumes.type "configmap" }}
           {{- end }}
+  {{- end }}

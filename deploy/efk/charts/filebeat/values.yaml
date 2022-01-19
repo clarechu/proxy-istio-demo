@@ -2,15 +2,11 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-fullname: kibana
-kibana:
+fullname: filebeat
+imagePullPolicy: IfNotPresent
+filebeat:
+  namespace: kube-system
   enabled: false
 
 global:
   version: 7.16.1
-
-replicas: 1
-
-elasticsearch:
-  hosts:
-    - http://elasticsearch:9200

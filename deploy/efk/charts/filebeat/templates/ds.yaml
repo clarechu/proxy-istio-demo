@@ -1,0 +1,96 @@
+{{- if .Values.filebeat.enabled }}
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: filebeat
+  namespace: {{ .Values.filebeat.namespace }}
+  labels:
+    app: filebeat
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    version: {{ .Values.global.version }}
+spec:
+  selector:
+    matchLabels:
+      app: filebeat
+  template:
+    metadata:
+      name: filebeat
+      labels:
+        app: app
+        chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+        version: {{ .Values.global.version }}
+    spec:
+      containers:
+        - name: "filebeat"
+          image: {{ .Values.global.hub }}{{ .Values.fullname }}:{{ .Values.global.version }}
+          imagePullPolicy: "{{ .Values.imagePullPolicy }}"
+          args:
+            - "-c"
+            - "/etc/filebeat.yml"
+            - "-e"
+          env:
+          - name: ELASTICSEARCH_HOST
+            value: elasticsearch
+          - name: ELASTICSEARCH_PORT
+            value: "9200"
+          - name: ELASTICSEARCH_USERNAME
+            value: elastic
+          - name: ELASTICSEARCH_PASSWORD
+            value: changeme
+          - name: ELASTIC_CLOUD_ID
+            value: ""
+          - name: ELASTIC_CLOUD_AUTH
+            value: ""
+          - name: NODE_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: spec.nodeName
+          volumeMounts:
+            - name: config
+              mountPath: /etc/filebeat.yml
+              readOnly: true
+              subPath: filebeat.yml
+            - name: data
+              mountPath: /usr/share/filebeat/data
+            - name: varlibdockercontainers
+              mountPath: /var/lib/docker/containers
+              readOnly: true
+            - name: varlog
+              mountPath: /var/log
+              readOnly: true
+          securityContext:
+            runAsUser: 0
+            # If using Red Hat OpenShift uncomment this:
+            #privileged: true
+          resources:
+            limits:
+              memory: 200Mi
+            requests:
+              cpu: 100m
+              memory: 100Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 10
+      volumes:
+        - name: config
+          configMap:
+            defaultMode: 0640
+            name: filebeat-config
+        - name: varlibdockercontainers
+          hostPath:
+            path: /var/lib/docker/containers
+        - name: varlog
+          hostPath:
+            path: /var/log
+        # data folder stores a registry of read status for all files, so we don't send everything again on a Filebeat pod restart
+        - name: data
+          hostPath:
+            # When filebeat runs as non-root user, this directory needs to be writable by group (g+w).
+            path: /var/lib/filebeat-data
+            type: DirectoryOrCreate
+  {{- end }}

@@ -1,7 +1,7 @@
 apiVersion: v2
-name: efk
-description: efk app
-icon: https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png
+name: filebeat
+description: filebeat app
+
 # A chart can be either an 'application' or a 'library' chart.
 #
 # Application charts are a collection of templates that can be packaged into versioned archives
@@ -22,7 +22,3 @@ version: 7.16.1
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
 appVersion: "1.16.0"
-
-dependencies:
-  - name: elasticsearch
-  - name: kibana

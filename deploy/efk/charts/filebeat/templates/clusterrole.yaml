@@ -1,0 +1,94 @@
+{{- if .Values.filebeat.enabled }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: filebeat
+subjects:
+  - kind: ServiceAccount
+    name: filebeat
+    namespace: {{ .Values.filebeat.namespace }}
+roleRef:
+  kind: ClusterRole
+  name: filebeat
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: filebeat
+  namespace: {{ .Values.filebeat.namespace }}
+subjects:
+  - kind: ServiceAccount
+    name: filebeat
+    namespace: {{ .Values.filebeat.namespace }}
+roleRef:
+  kind: Role
+  name: filebeat
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: filebeat-kubeadm-config
+  namespace: {{ .Values.filebeat.namespace }}
+subjects:
+  - kind: ServiceAccount
+    name: filebeat
+    namespace: {{ .Values.filebeat.namespace }}
+roleRef:
+  kind: Role
+  name: filebeat-kubeadm-config
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: filebeat
+  labels:
+    k8s-app: filebeat
+rules:
+  - apiGroups: [""] # "" indicates the core API group
+    resources:
+      - namespaces
+      - pods
+      - nodes
+    verbs:
+      - get
+      - watch
+      - list
+  - apiGroups: ["apps"]
+    resources:
+      - replicasets
+    verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: filebeat
+  # should be the namespace where filebeat is running
+  namespace: {{ .Values.filebeat.namespace }}
+  labels:
+    k8s-app: filebeat
+rules:
+  - apiGroups:
+      - coordination.k8s.io
+    resources:
+      - leases
+    verbs: ["get", "create", "update"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: filebeat-kubeadm-config
+  namespace: {{ .Values.filebeat.namespace }}
+  labels:
+    k8s-app: filebeat
+rules:
+  - apiGroups: [""]
+    resources:
+      - configmaps
+    resourceNames:
+      - kubeadm-config
+    verbs: ["get"]
+  {{- end }}

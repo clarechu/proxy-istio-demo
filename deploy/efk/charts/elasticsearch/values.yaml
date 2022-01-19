@@ -1,7 +1,8 @@
 # Default values for demo.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-
+elasticsearch:
+  enabled: true
 fullnameOverride: elasticsearch
 nameOverride: elasticsearch
 clusterName: elasticsearch-cluster
@@ -12,7 +13,10 @@ replicas: 1
 
 volumes:
   type: hostPath
+java:
+  ops: -Xms512m -Xmx512m
 
 global:
   version: 7.16.1
+  hub: docker.elastic.co/elasticsearch/
 

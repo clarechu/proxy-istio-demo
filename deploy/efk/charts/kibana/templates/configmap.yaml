@@ -1,3 +1,4 @@
+{{- if .Values.kibana.enabled }}
 apiVersion: v1
 data:
   kibana.yml: |
@@ -11,3 +12,4 @@ metadata:
   name: kibana-cm
   labels:
     version: {{ .Values.global.version }}
+    {{- end }}

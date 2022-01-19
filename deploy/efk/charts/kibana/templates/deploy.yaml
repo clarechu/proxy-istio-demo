@@ -1,3 +1,5 @@
+{{- if .Values.kibana.enabled }}
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -23,7 +25,7 @@ spec:
         app: kibana
     spec:
       containers:
-        - image: kibana:{{ .Values.global.version }}
+        - image: {{ .Values.global.hub }}{{ .Values.fullnameOverride }}:{{ .Values.global.version }}
           imagePullPolicy: IfNotPresent
           name: kibana
           resources: {}
@@ -43,3 +45,4 @@ spec:
             defaultMode: 420
             name: kibana-cm
           name: kibana-cm
+          {{- end }}

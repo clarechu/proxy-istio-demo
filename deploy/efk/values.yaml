@@ -1,2 +1,3 @@
 global:
   version: 7.16.1
+  hub: docker.elastic.co/elasticsearch/

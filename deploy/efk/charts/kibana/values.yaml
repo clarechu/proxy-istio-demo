@@ -10,5 +10,3 @@ replicas: 1
 elasticsearch:
   hosts:
     - http://elasticsearch:9200
-    - http://elasticsearch111:9200
-    - http://xxxxxx:9200

@@ -9,12 +9,10 @@ spec:
   externalTrafficPolicy: Cluster
   ports:
     - name: http-9200
-      nodePort: 32147
       port: 9200
       protocol: TCP
       targetPort: 9200
     - name: http-9300
-      nodePort: 30696
       port: 9300
       protocol: TCP
       targetPort: 9300

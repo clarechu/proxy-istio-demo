@@ -7,18 +7,12 @@ metadata:
   name: elasticsearch
 spec:
   podManagementPolicy: OrderedReady
-  progressDeadlineSeconds: 600
-  replicas: 1
+  replicas: {{ .Values.replicas }}
   revisionHistoryLimit: 10
   serviceName: elasticsearch
   selector:
     matchLabels:
       app: elasticsearch
-  strategy:
-    rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 25%
-    type: RollingUpdate
   template:
     metadata:
       creationTimestamp: null
@@ -35,6 +29,8 @@ spec:
             {{- if ne (.Values.replicas | toString) "1" }}
             - name: cluster.initial_master_nodes
               value: "{{ template "elasticsearch.endpoints" . }}"
+            - name: discovery.seed_hosts
+              value: {{ template "elasticsearch.masterService" . }}
             {{- end }}
             - name: POD_NAME
               valueFrom:

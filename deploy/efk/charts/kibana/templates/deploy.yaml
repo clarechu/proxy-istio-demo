@@ -25,7 +25,7 @@ spec:
         app: kibana
     spec:
       containers:
-        - image: {{ .Values.global.hub }}{{ .Values.fullnameOverride }}:{{ .Values.global.version }}
+        - image: {{ .Values.global.hub }}{{ .Values.fullname }}:{{ .Values.global.version }}
           imagePullPolicy: IfNotPresent
           name: kibana
           resources: {}

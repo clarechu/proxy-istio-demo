@@ -1,7 +1,7 @@
 {{- if .Values.kibana.enabled }}
 apiVersion: v1
 data:
-  kibana.yml: |
+  kibana.yml: |-
     # Default Kibana configuration for docker target
     server.name: kibana
     server.host: "0"

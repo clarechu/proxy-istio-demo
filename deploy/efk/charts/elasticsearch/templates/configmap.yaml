@@ -8,7 +8,7 @@ metadata:
     app: elasticsearch
     version: {{ .Values.global.version }}
 data:
-  elasticsearch.yml: |
+  elasticsearch.yml: |-
     cluster.name: "es-cluster-${POD_NAMESPACE}"
     node.name: "${POD_NAME}"
     network.host: 0.0.0.0

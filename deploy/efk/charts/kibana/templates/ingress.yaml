@@ -1,21 +1,21 @@
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: kibana
-spec:
-  rules:
-    - host: {{ .Values.kibana.host }}
-      http:
-        paths:
-          - path: /
-            backend:
-              service:
-                name: kibana
-                port:
-                  number: 5601
-            pathType: Prefix
----
+{{/*---*/}}
+{{/*apiVersion: networking.k8s.io/v1*/}}
+{{/*kind: Ingress*/}}
+{{/*metadata:*/}}
+{{/*  name: kibana*/}}
+{{/*spec:*/}}
+{{/*  rules:*/}}
+{{/*    - host: {{ .Values.kibana.host }}*/}}
+{{/*      http:*/}}
+{{/*        paths:*/}}
+{{/*          - path: /*/}}
+{{/*            backend:*/}}
+{{/*              service:*/}}
+{{/*                name: kibana*/}}
+{{/*                port:*/}}
+{{/*                  number: 5601*/}}
+{{/*            pathType: Prefix*/}}
+{{/*---*/}}
 
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress

@@ -73,10 +73,12 @@ spec:
       terminationGracePeriodSeconds: 10
       volumes:
         - name: elasticsearch
-          {{- if gt .Values.volumes.type "hostPath" }}
+          {{- if eq .Values.volumes.type "hostPath" }}
           hostPath:
             path: /data/elasticsearch
             type: Directory
-          {{- else if gt .Values.volumes.type "configmap" }}
+          {{- else if eq .Values.volumes.type "pvc" }}
+          persistentVolumeClaim:
+            claimName: elasticsearch-claim
           {{- end }}
   {{- end }}

@@ -1,0 +1,15 @@
+{{- if eq .Values.volumes.type "pvc" }}
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: elasticsearch-claim
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 100Gi
+
+---
+{{- end }}

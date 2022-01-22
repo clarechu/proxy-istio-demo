@@ -80,5 +80,7 @@ spec:
           {{- else if eq .Values.volumes.type "pvc" }}
           persistentVolumeClaim:
             claimName: elasticsearch-claim
+          {{- else }}
+          emptyDir: {}
           {{- end }}
   {{- end }}

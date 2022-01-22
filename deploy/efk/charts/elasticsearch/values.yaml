@@ -12,7 +12,7 @@ nodeGroup:
 replicas: 1
 
 volumes:
-  type: hostPath
+  type: emptyDir
 
 java:
   ops: -Xms512m -Xmx512m

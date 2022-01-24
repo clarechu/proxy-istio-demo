@@ -16,17 +16,18 @@
 {{/*                  number: 5601*/}}
 {{/*            pathType: Prefix*/}}
 {{/*---*/}}
-
+  {{- if .Values.enabled }}
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: kibana
 spec:
   rules:
-    - host: {{ .Values.kibana.host }}
+    - host: {{ .Values.host }}
       http:
         paths:
           - path: /
             backend:
               serviceName: kibana
               servicePort: 5601
+  {{- end }}

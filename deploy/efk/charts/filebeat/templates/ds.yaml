@@ -1,10 +1,10 @@
-{{- if .Values.filebeat.enabled }}
+{{- if .Values.enabled }}
 ---
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: filebeat
-  namespace: {{ .Values.filebeat.namespace }}
+  namespace: {{ .Values.namespace }}
   labels:
     app: filebeat
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"

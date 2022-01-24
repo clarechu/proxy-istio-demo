@@ -25,4 +25,8 @@ appVersion: "1.16.0"
 
 dependencies:
   - name: elasticsearch
+    condition: elasticsearch.enabled
   - name: kibana
+    condition: kibana.enabled
+  - name: filebeat
+    condition: filebeat.enabled

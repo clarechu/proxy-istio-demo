@@ -3,9 +3,9 @@
 # Declare variables to be passed into your templates.
 
 fullname: kibana
-kibana:
-  enabled: false
-  host: kibana.demo.cn
+enabled: true
+
+host: kibana.demo.cn
 
 global:
   version: 7.16.1

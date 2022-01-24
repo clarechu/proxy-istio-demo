@@ -1,4 +1,4 @@
-{{- if .Values.filebeat.enabled }}
+{{- if .Values.enabled }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -7,7 +7,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: filebeat
-    namespace: {{ .Values.filebeat.namespace }}
+    namespace: {{ .Values.namespace }}
 roleRef:
   kind: ClusterRole
   name: filebeat
@@ -17,11 +17,11 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: filebeat
-  namespace: {{ .Values.filebeat.namespace }}
+  namespace: {{ .Values.namespace }}
 subjects:
   - kind: ServiceAccount
     name: filebeat
-    namespace: {{ .Values.filebeat.namespace }}
+    namespace: {{ .Values.namespace }}
 roleRef:
   kind: Role
   name: filebeat
@@ -31,11 +31,11 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: filebeat-kubeadm-config
-  namespace: {{ .Values.filebeat.namespace }}
+  namespace: {{ .Values.namespace }}
 subjects:
   - kind: ServiceAccount
     name: filebeat
-    namespace: {{ .Values.filebeat.namespace }}
+    namespace: {{ .Values.namespace }}
 roleRef:
   kind: Role
   name: filebeat-kubeadm-config
@@ -67,7 +67,7 @@ kind: Role
 metadata:
   name: filebeat
   # should be the namespace where filebeat is running
-  namespace: {{ .Values.filebeat.namespace }}
+  namespace: {{ .Values.namespace }}
   labels:
     k8s-app: filebeat
 rules:
@@ -81,7 +81,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: filebeat-kubeadm-config
-  namespace: {{ .Values.filebeat.namespace }}
+  namespace: {{ .Values.namespace }}
   labels:
     k8s-app: filebeat
 rules:

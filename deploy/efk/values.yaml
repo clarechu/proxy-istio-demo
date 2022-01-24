@@ -3,3 +3,10 @@ global:
   hub: docker.elastic.co/elasticsearch/
   kibana:
     hub: docker.io/
+
+elasticsearch:
+    enabled: true
+kibana:
+  enabled: false
+filebeat:
+  enabled: false

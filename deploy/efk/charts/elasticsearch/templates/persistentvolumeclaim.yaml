@@ -1,3 +1,5 @@
+{{- if .Values.enabled }}
+
 {{- if eq .Values.volumes.type "pvc" }}
 ---
 kind: PersistentVolumeClaim
@@ -12,4 +14,5 @@ spec:
       storage: 100Gi
 
 ---
+{{- end }}
 {{- end }}

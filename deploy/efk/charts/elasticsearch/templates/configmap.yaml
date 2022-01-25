@@ -3,7 +3,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: elasticsearch
+  name: elasticsearch-cm
   labels:
     app: elasticsearch
     version: {{ .Values.global.version }}
@@ -16,7 +16,7 @@ data:
     transport.host: 0.0.0.0
     bootstrap.memory_lock: false
     discovery.seed_hosts: elasticsearch
-    node.master: true 
+    node.master: true
     node.data: false 
     node.ingest: false 
     cluster.remote.connect: false

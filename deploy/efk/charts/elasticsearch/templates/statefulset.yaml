@@ -28,6 +28,10 @@ spec:
             - name: discovery.type
               value: single-node
             {{- end }}
+            - name: node.name
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
             {{- if ne (.Values.replicas | toString) "1" }}
             - name: cluster.initial_master_nodes
               value: "{{ template "elasticsearch.endpoints" . }}"
@@ -54,15 +58,24 @@ spec:
           name: elasticsearch
           volumeMounts:
             - mountPath: /usr/share/elasticsearch/data
-              name: elasticsearch
+              name: data
+            - mountPath: /usr/share/elasticsearch/config/elasticsearch.yml
+              subPath: elasticsearch.yml
+              name: config
           ports:
             - containerPort: 9200
-              name: http-9200
+              name: http
               protocol: TCP
             - containerPort: 9300
-              name: http-9300
+              name: transport
               protocol: TCP
-          resources: {}
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 2Gi
+            requests:
+              cpu: 1000m
+              memory: 2Gi
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
       dnsPolicy: ClusterFirst
@@ -71,16 +84,26 @@ spec:
       securityContext: {}
       terminationGracePeriodSeconds: 10
       volumes:
-        - name: elasticsearch
+        - name: elasticsearch-cm
+          configMap:
+            name: elasticsearch-cm
+        - name: data
           {{- if eq .Values.volumes.type "hostPath" }}
           hostPath:
             path: /data/elasticsearch
             type: Directory
-          {{- else if eq .Values.volumes.type "pvc" }}
-          persistentVolumeClaim:
-            claimName: elasticsearch-claim
           {{- else }}
-          emptyDir: {}
+          emptyDir: { }
           {{- end }}
+  {{- if eq .Values.volumes.type "pvc" }}
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 200Gi
+  {{- end }}
 ---
 {{- end }}

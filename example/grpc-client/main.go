@@ -28,10 +28,28 @@ func main() {
 
 func RegistryHandle(conn *grpc.ClientConn) *http.ServeMux {
 	mux := http.NewServeMux()
+	mux.Handle("/mail", &mailHandler{
+		conn: conn,
+	})
 	mux.Handle("/", &demoHandler{
 		conn: conn,
 	})
+
 	return mux
+}
+
+type mailHandler struct {
+	conn *grpc.ClientConn
+}
+
+func (d *mailHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	message := r.URL.Query().Get("message")
+	log.Printf("get message data--> %v", message)
+	b, err := json.Marshal(pkg.Mail(d.conn, message))
+	if err != nil {
+		log.Printf("%+v", err)
+	}
+	w.Write(b)
 }
 
 type demoHandler struct {

@@ -18,13 +18,17 @@ spec:
     type: RollingUpdate
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: grpc-server
         version: v1
     spec:
       containers:
-      - image: clarechu/grpc-server:v1.0
+      - image: clarechu/grpc-server:v2.0
+        env:
+          - name: "MAIL_FROM"
+            value: ""
+          - name: "MAIL_PASSWORD"
+            value: ""
         imagePullPolicy: Always
         name: grpc-server
       dnsPolicy: ClusterFirst

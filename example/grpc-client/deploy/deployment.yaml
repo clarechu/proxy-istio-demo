@@ -27,7 +27,7 @@ spec:
       - args:
           - grpc-client
           - --addr=grpc-server
-        image: clarechu/grpc-client:v1.0
+        image: clarechu/grpc-client:v2.0
         imagePullPolicy: Always
         name: grpc-client
       dnsPolicy: ClusterFirst

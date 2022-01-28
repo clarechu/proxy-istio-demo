@@ -6,6 +6,6 @@ import (
 )
 
 func TestSendMailByServer(t *testing.T) {
-	err := SendMailByServer()
+	err := SendMailByServer("demo")
 	assert.Equal(t, nil, err)
 }

@@ -17,6 +17,6 @@ type Mail struct {
 
 func (d *Mail) Get(ctx context.Context, req *proto.MailRequest) (*proto.MailResponse, error) {
 	log.Printf("request message ---> %v", req.Message)
-	err := service.SendMailByServer()
+	err := service.SendMailByServer(req.Message)
 	return &proto.MailResponse{}, err
 }

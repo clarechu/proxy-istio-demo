@@ -24,13 +24,13 @@ func init() {
 }
 
 // SendMailByServer 发送email 邮箱
-func SendMailByServer() error {
+func SendMailByServer(message string) error {
 	log.Println("start email ...")
 	e := email.NewEmail()
 	e.From = from
 	e.To = []string{me_mail}
 	e.Subject = "Awesome Subject"
-	e.Text = []byte("Text Body is, of course, supported!")
+	e.Text = []byte(message)
 	err := e.SendWithTLS("smtp.qiye.aliyun.com:465", plainAuth,
 		&tls.Config{
 			ServerName:         "smtp.qiye.aliyun.com",

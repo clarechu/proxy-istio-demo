@@ -1,0 +1,17 @@
+syntax = "proto3";
+package v1;
+option go_package = "github.com/ClareChu/proxy-istio-demo/proto";
+
+
+message MailRequest {
+    string message = 1;
+
+}
+
+message MailResponse {
+}
+
+service MailInterface {
+    rpc Get (MailRequest) returns (MailResponse) {
+    }
+}

@@ -41,4 +41,5 @@ func main() {
 
 func RegistryGrpc(server *grpc.Server) {
 	pkg.NewDemo(server)
+	pkg.NewMail(server)
 }

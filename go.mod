@@ -12,6 +12,8 @@ require (
 	github.com/jordan-wright/email v4.0.1-0.20210109023952-943e75fe5223+incompatible
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/pkg/errors v0.9.1 // indirect
+	github.com/segmentio/kafka-go v0.4.28
+	github.com/stretchr/testify v1.6.1
 	github.com/tetratelabs/proxy-wasm-go-sdk v0.1.1
 	github.com/uber/jaeger-client-go v2.25.0+incompatible
 	github.com/uber/jaeger-lib v2.4.0+incompatible // indirect
@@ -19,3 +21,5 @@ require (
 	golang.org/x/net v0.0.0-20210226172049-e18ecbb05110
 	google.golang.org/grpc v1.16.0
 )
+
+replace github.com/jordan-wright/email v4.0.1-0.20210109023952-943e75fe5223+incompatible => github.com/clarechu/email v4.0.1-0.20220128100025-d1a37658465a+incompatible

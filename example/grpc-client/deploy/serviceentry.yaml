@@ -1,0 +1,23 @@
+apiVersion: networking.istio.io/v1beta1
+kind: ServiceEntry
+metadata:
+  generation: 1
+  labels:
+    app: kafka
+  name: kafka
+  namespace: xa
+spec:
+  addresses:
+    - 127.0.0.1
+  endpoints:
+    - address: 127.0.0.1
+      labels:
+        app: kafka
+  hosts:
+    - kafka
+  location: MESH_EXTERNAL
+  ports:
+    - name: kafka-9092
+      number: 9092
+      protocol: TCP
+  resolution: STATIC

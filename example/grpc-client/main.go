@@ -12,6 +12,7 @@ import (
 
 var addr = flag.String("addr", "localhost", "The address of the server to connect to")
 var port = flag.String("port", "7575", "The port to connect to")
+var kafkaAddress = flag.String("kafka", "127.0.0.1:9092", "The kafka address of the server to connect to")
 
 func main() {
 	flag.Parse()
@@ -34,7 +35,7 @@ func RegistryHandle(conn *grpc.ClientConn) *http.ServeMux {
 	mux.Handle("/", &demoHandler{
 		conn: conn,
 	})
-
+	mux.HandleFunc("/kafka", pkg.NewKafka(*kafkaAddress).ServeHTTP)
 	return mux
 }
 

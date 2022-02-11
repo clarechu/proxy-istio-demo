@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"github.com/ClareChu/proxy-istio-demo/example/grpc-server/pkg"
 	"github.com/ClareChu/proxy-istio-demo/pkg/tracing"
 	"github.com/grpc-ecosystem/grpc-opentracing/go/otgrpc"
@@ -11,6 +12,8 @@ import (
 	"time"
 )
 
+var kafkaAddress = flag.String("kafka", "10.10.13.110:9092", "The kafka address of the server to connect to")
+
 const (
 	SamplingServerURL  = ""
 	LocalAgentHostPort = ""
@@ -18,6 +21,7 @@ const (
 )
 
 func main() {
+	flag.Parse()
 	tracer, closer := tracing.NewTracing(SamplingServerURL, LocalAgentHostPort)
 	defer closer.Close()
 	server := grpc.NewServer(
@@ -34,6 +38,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err.Error())
 	}
+	go func() {
+		pkg.Consume(*kafkaAddress)
+	}()
 	RegistryGrpc(server)
 	log.Printf("Serving gRPC on grpc://localhost%v", ServerAddr)
 	server.Serve(lis)

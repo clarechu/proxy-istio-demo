@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-var kafkaAddress = flag.String("kafka", "10.10.13.110:9092", "The kafka address of the server to connect to")
+var kafkaAddress = flag.String("kafka", "127.0.0.1:9092", "The kafka address of the server to connect to")
 
 const (
 	SamplingServerURL  = ""

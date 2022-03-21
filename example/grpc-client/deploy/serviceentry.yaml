@@ -21,3 +21,26 @@ spec:
       number: 9092
       protocol: TCP
   resolution: STATIC
+
+
+---
+
+
+# remote https://www.baidu.com
+
+
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: external-svc-https
+spec:
+  addresses:
+  - 10.10.13.110
+  hosts:
+    - www.baidu.com
+  location: MESH_EXTERNAL
+  ports:
+    - number: 443
+      name: https
+      protocol: TLS
+  resolution: DNS

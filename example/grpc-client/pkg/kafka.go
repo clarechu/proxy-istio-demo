@@ -17,7 +17,8 @@ func NewKafka(address string) *KafkaHandler {
 	partition := 0
 	conn, err := kafka.DialLeader(context.Background(), "tcp", address, topic, partition)
 	if err != nil {
-		panic(err)
+		log.Printf("connection kafka error")
+		return &KafkaHandler{}
 	}
 	return &KafkaHandler{
 		conn: conn,

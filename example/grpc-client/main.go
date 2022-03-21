@@ -36,6 +36,8 @@ func RegistryHandle(conn *grpc.ClientConn) *http.ServeMux {
 		conn: conn,
 	})
 	mux.HandleFunc("/kafka", pkg.NewKafka(*kafkaAddress).ServeHTTP)
+	remote := &pkg.RemoteHandler{}
+	mux.HandleFunc("/remote", remote.ServeHTTP)
 	return mux
 }
 

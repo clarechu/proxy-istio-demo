@@ -35,7 +35,7 @@ metadata:
   name: external-svc-https
 spec:
   addresses:
-  - 10.10.13.110
+  - 10.10.11.110
   hosts:
     - www.baidu.com
   location: MESH_EXTERNAL

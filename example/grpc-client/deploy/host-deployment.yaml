@@ -24,7 +24,7 @@ spec:
         version: v1
     spec:
       hostAliases:
-        - ip: 10.10.13.110
+        - ip: 10.10.13.87
           hostnames:
             - www.baidu.com
       containers:

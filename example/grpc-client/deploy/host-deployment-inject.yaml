@@ -169,7 +169,7 @@ spec:
       hostAliases:
       - hostnames:
         - www.baidu.com
-        ip: 10.10.13.110
+        ip: 10.10.11.110
       initContainers:
       - args:
         - istio-iptables

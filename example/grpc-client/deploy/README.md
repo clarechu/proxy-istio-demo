@@ -1,4 +1,4 @@
-# serviceentry
+# 代理访问第三方服务解决方案
 
 
 ServiceEntry允许将其他条目添加到 Istio 的内部服务注册表中，

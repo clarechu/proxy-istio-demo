@@ -5,7 +5,8 @@ import (
 )
 
 type Root struct {
-	Port int32 `json:"port"`
+	Port    int32 `json:"port"`
+	Timeout int32 `json:"timeout"`
 }
 
 // GetRootCmd returns the root of the cobra command-tree.
@@ -31,4 +32,6 @@ Example:
 
 func addFlag(rootCmd *cobra.Command, root *Root) {
 	rootCmd.PersistentFlags().Int32Var(&root.Port, "port", 7777, "proxy server ports")
+	rootCmd.PersistentFlags().Int32Var(&root.Timeout, "timeout", 5, "proxy server timeout")
+
 }

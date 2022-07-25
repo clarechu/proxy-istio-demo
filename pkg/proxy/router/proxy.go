@@ -29,12 +29,15 @@ func ComponentHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		outReq.Header.Set("X-Forwarded-For", clientIP)
 	}
-	outReq.Host = fmt.Sprintf("%s:%s", os.Getenv("PROXY_IP"), r.URL.Port())
-	log.Infof("proxy url --> %s", outReq.Host)
-	outReq.URL.Host = outReq.Host
+	if strings.Contains(r.Host, "172.20.140.150") {
+		outReq.Host = fmt.Sprintf("%s:%s", os.Getenv("PROXY_IP"), r.URL.Port())
+		log.Infof("proxy url --> %s", outReq.Host)
+		outReq.URL.Host = outReq.Host
+	}
 	res, err := transport.RoundTrip(outReq)
 	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
 		return
 	}
 	defer res.Body.Close()

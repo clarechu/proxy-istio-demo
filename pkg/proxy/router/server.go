@@ -48,8 +48,8 @@ func NewServer(root *Root) *Server {
 		Handler: handlers.LoggingHandler(os.Stdout, r),
 		Addr:    fmt.Sprintf(":%d", root.Port),
 		// Good practice: enforce timeouts for servers you create!
-		WriteTimeout: 5 * time.Second,
-		ReadTimeout:  5 * time.Second,
+		WriteTimeout: 3 * time.Second,
+		ReadTimeout:  3 * time.Second,
 	}
 	return &Server{
 		sv: srv,

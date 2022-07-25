@@ -8,6 +8,5 @@ tag: v4.0.2
 imageName: nfs-subdir-external-provisioner
 
 nfs:
-  namespace: kube-system
   server: localhost
   path: /nfs/data

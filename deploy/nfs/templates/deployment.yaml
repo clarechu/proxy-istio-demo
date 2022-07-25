@@ -6,7 +6,7 @@ metadata:
   labels:
     app: nfs-client-provisioner
   # replace with namespace where provisioner is deployed
-  namespace: {{ .Values.nfs.namespace }}
+  namespace: {{ .Release.Namespace }}
 spec:
   replicas: 1
   strategy:
